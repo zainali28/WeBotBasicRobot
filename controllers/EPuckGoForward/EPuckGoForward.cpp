@@ -12,7 +12,11 @@
 // added motor include file
 #include <webots/Motor.hpp>
 
+// defining time step of simulation
 #define TIME_STEP 64
+
+// defining the maximum speed of the motor
+#define MAX_SPEED 6.28
 
 // All the webots classes are defined in the "webots" namespace
 using namespace webots;
@@ -24,17 +28,23 @@ using namespace webots;
 // a controller program.
 // The arguments of the main function can be specified by the
 // "controllerArgs" field of the Robot node
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
   // create the Robot instance.
   Robot *robot = new Robot();
-  
+
   // getting the motor devices
   Motor *leftMotor = robot->getMotor("left wheel motor");
   Motor *rightMotor = robot->getMotor("right wheel motor");
-  
-  // setting target position of motors
-  leftMotor->setPosition(10.0);
-  rightMotor->setPosition(10.0);
+
+  // setting target position of motors to infinity as we will
+  // control robot using the velocity
+  leftMotor->setPosition(INFINITY);
+  rightMotor->setPosition(INFINITY);
+
+  // setting the velocity of the robot motors to 10% of MaxSpeed
+  leftMotor->setVelocity(0.1 * MAX_SPEED);
+  rightMotor->setVelocity(0.1 * MAX_SPEED);
 
   // get the time step of the current world.
   // int timeStep = (int)robot->getBasicTimeStep();
@@ -47,7 +57,8 @@ int main(int argc, char **argv) {
 
   // Main loop:
   // - perform simulation steps until Webots is stopping the controller
-  while (robot->step(TIME_STEP) != -1) {
+  while (robot->step(TIME_STEP) != -1)
+  {
     // Read the sensors:
     // Enter here functions to read sensor data, like:
     //  double val = ds->getValue();
