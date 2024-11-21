@@ -40,7 +40,7 @@ WoodenBox {
 E-puck {
   translation 0.03235454865110006 -7.740131226840868e-10 -3.191749456310164e-05
   rotation -4.587143285664921e-08 0.9999999999390278 -1.104274277377929e-05 0.0025338816959600908
-  controller "EPuckGoForward"
+  controller "EPuckAvoidCollision"
 }
 Floor {
   size 1 1
